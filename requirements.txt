@@ -1,0 +1,35 @@
+# Core dependencies
+kafka-python==2.0.2
+pyspark==3.4.1
+mysql-connector-python==8.1.0
+pandas==2.0.3
+numpy==1.24.3
+
+# Data processing
+pyarrow==12.0.1
+findspark==2.0.1
+
+# Date handling
+python-dateutil==2.8.2
+holidays==0.29
+
+# JSON handling
+ujson==5.8.0
+
+# Logging
+structlog==23.1.0
+
+# Development and testing
+pytest==7.4.0
+pytest-cov==4.1.0
+black==23.7.0
+flake8==6.0.0
+
+# Optional: For enhanced data analysis
+matplotlib==3.7.2
+seaborn==0.12.2
+plotly==5.15.0
+
+# Optional: For better performance
+psutil==5.9.5
+memory-profiler==0.61.0 
