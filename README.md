@@ -16,67 +16,77 @@ This project implements a network of financial and investment services consistin
 - **Database Management** - MySQL storage for investor and portfolio data
 - **Analytics Engine** - Spark-based statistical analysis and reporting
 
-## 🏗️ System Architecture 
-
-┌─────────────────┐    ┌─────────────────┐
-│  Stock Exchange │    │  Stock Exchange │
-│     Server 1    │    │     Server 2    │
-│   (se1_server)  │    │   (se2_server)  │
-└─────────┬───────┘    └─────────┬───────┘
-│                      │
-└──────┬─────────────┬──┘
-│             │
-┌─────▼─────────────▼─────┐
-│    Kafka Topic:         │
-│   "StockExchange"       │
-└─────┬─────────────┬─────┘
-│             │
-┌───────────▼─┐ ┌─────────▼─┐ ┌─────────▼───┐
-│ Investor 1  │ │ Investor 2│ │ Investor 3  │
-│   (inv1)    │ │   (inv2)  │ │   (inv3)    │
-│ P11 │ P12   │ │ P21 │ P22 │ │ P31 │ P32   │
-└─────┬───────┘ └─────┬─────┘ └─────┬───────┘
-│               │             │
-└───────┬───────┼─────────────┘
-│       │
-┌─────▼───────▼─────┐
+## 🏗️ System Architecture
+┌─────────────────────┐    ┌─────────────────────┐
+│  Stock Exchange 1   │    │  Stock Exchange 2   │
+│   (se1_server.py)   │    │   (se2_server.py)   │
+│   📈 Stocks 1-12    │    │   📈 Stocks 13-24   │
+└──────────┬──────────┘    └──────────┬──────────┘
+│                          │
+└────────┬───────────────────┘
+▼
+┌───────────────────┐
+│   Kafka Topic:    │
+│  "StockExchange"  │
+│   📡 Real-time    │
+└─────────┬─────────┘
+│
+┌─────────────┼─────────────┐
+▼             ▼             ▼
+┌──────────────┐ ┌──────────────┐ ┌──────────────┐
+│ Investor 1   │ │ Investor 2   │ │ Investor 3   │
+│  (inv1.py)   │ │  (inv2.py)   │ │  (inv3.py)   │
+│ 💼 P11 | P12 │ │ 💼 P21 | P22 │ │ 💼 P31 | P32 │
+└──────┬───────┘ └──────┬───────┘ └──────┬───────┘
+│                │                │
+└────────────────┼────────────────┘
+▼
+┌───────────────────┐
 │   Kafka Topic:    │
 │   "portfolios"    │
-└─────┬─────────────┘
-│
-┌─────────▼─────────┐
-│     MySQL DB      │
-│   "InvestorsDB"   │
-└─────┬─────────────┘
-│
-┌─────────▼─────────┐
-│   Spark Analytics │
-│     (app2.py)     │
-└───────────────────┘
+│  💹 Evaluations   │
+└─────────┬─────────┘
+▼
+┌───────────────┐
+│  Kafka-DB     │
+│  Bridge       │
+│  (app1.py)    │
+└───────┬───────┘
+▼
+┌─────────────────────┐
+│    MySQL Database   │
+│    "InvestorsDB"    │
+│  🗄️ Persistent Data │
+└─────────┬───────────┘
+▼
+┌─────────────────────┐
+│  Spark Analytics    │
+│     (app2.py)       │
+│  📊 Statistical     │
+│     Analysis        │
+└─────────────────────┘
 
 ## 📁 Project Structure
-
 big-data-financial-network/
-├── src/
-│   ├── servers/
-│   │   ├── se1_server.py          # Stock Exchange Server 1
-│   │   └── se2_server.py          # Stock Exchange Server 2
-│   ├── investors/
-│   │   ├── inv1.py                # Institutional Investor 1
-│   │   ├── inv2.py                # Institutional Investor 2
-│   │   └── inv3.py                # Institutional Investor 3
-│   ├── database/
-│   │   └── investorsDB.py         # MySQL Database Setup
-│   └── applications/
-│       ├── app1.py                # Kafka to Database Bridge
-│       └── app2.py                # Spark Analytics Engine
-├── data/
-│   └── output/                    # Generated statistics files
-├── README.md                      # This file
-├── requirements.txt               # Python dependencies
-├── Team.txt                       # Team contribution details
-└── .gitignore                     # Git ignore rules
-
+├── 📄 README.md                      # Project documentation
+├── 📄 .gitignore                     # Git ignore rules
+├── 📄 requirements.txt               # Python dependencies
+├── 📄 Team.txt                       # Team contributions
+├── 📁 src/                           # Source code
+│   ├── 📁 servers/
+│   │   ├── 🐍 se1_server.py         # Stock Exchange Server 1
+│   │   └── 🐍 se2_server.py         # Stock Exchange Server 2
+│   ├── 📁 investors/
+│   │   ├── 🐍 inv1.py               # Institutional Investor 1
+│   │   ├── 🐍 inv2.py               # Institutional Investor 2
+│   │   └── 🐍 inv3.py               # Institutional Investor 3
+│   ├── 📁 database/
+│   │   └── 🐍 investorsDB.py        # MySQL Database Setup
+│   └── 📁 applications/
+│       ├── 🐍 app1.py               # Kafka to Database Bridge
+│       └── 🐍 app2.py               # Spark Analytics Engine
+└── 📁 data/
+└── 📁 output/                    # Generated statistics files
 
 ## 🚀 Quick Start
 
@@ -93,36 +103,34 @@ big-data-financial-network/
    git clone https://github.com/yourusername/big-data-financial-network.git
    cd big-data-financial-network
 
+Install dependencies
+bashpip install -r requirements.txt
+
 Run the system
+bash# Initialize database
+python src/database/investorsDB.py
 
-Start Kafka and MySQL services
-Initialize database: python src/database/investorsDB.py
-Start servers: python src/servers/se1_server.py and python src/servers/se2_server.py
-Start investors: python src/investors/inv1.py, python src/investors/inv2.py, python src/investors/inv3.py
-Start bridge: python src/applications/app1.py
-Run analytics: python src/applications/app2.py
+# Start stock exchange servers
+python src/servers/se1_server.py &
+python src/servers/se2_server.py &
 
-Investor 1 (inv1)
+# Start institutional investors
+python src/investors/inv1.py &
+python src/investors/inv2.py &
+python src/investors/inv3.py &
 
-P11: IBM(1300), AAPL(2200), FB(1900), AMZN(2500), GOOG(1900), AVGO(2400)
-P12: VZ(2900), INTC(2600), AMD(2100), MSFT(1200), DELL(2700), ORCL(1200)
+# Start Kafka-Database bridge
+python src/applications/app1.py &
 
-Investor 2 (inv2)
+# Run analytics
+python src/applications/app2.py
 
-P21: HPQ(1600), CSCO(1700), ZM(1900), QCOM(2100), ADBE(2800), VZ(1700)
-P22: TXN(1400), CRM(2600), AVGO(1700), NVDA(1800), MSTR(2600), EBAY(1800)
 
-Investor 3 (inv3)
+💼 Portfolio Configuration
+InvestorPortfolioHoldingsInv1P11IBM(1300), AAPL(2200), FB(1900), AMZN(2500), GOOG(1900), AVGO(2400)P12VZ(2900), INTC(2600), AMD(2100), MSFT(1200), DELL(2700), ORCL(1200)Inv2P21HPQ(1600), CSCO(1700), ZM(1900), QCOM(2100), ADBE(2800), VZ(1700)P22TXN(1400), CRM(2600), AVGO(1700), NVDA(1800), MSTR(2600), EBAY(1800)Inv3P31HPQ(2200), ZM(1800), DELL(2400), NVDA(1200), IBM(1900), INTC(1600)P32VZ(1800), AVGO(2900), NVDA(1600), AAPL(2200), DELL(2500), ORCL(2000)
+📊 Key Features
 
-P31: HPQ(2200), ZM(1800), DELL(2400), NVDA(1200), IBM(1900), INTC(1600)
-P32: VZ(1800), AVGO(2900), NVDA(1600), AAPL(2200), DELL(2500), ORCL(2000)
-
-📊 Features
-
-Real-time Data: Stock price simulation from 2000-01-01
+Real-time Data Processing: Stock price simulation with Kafka streaming
 Portfolio Management: Live evaluation and performance tracking
-Analytics: Historical analysis, yearly breakdowns, statistical insights
+Analytics Engine: Spark-based statistical analysis
 Database Integration: MySQL storage with comprehensive schema
-
-📄 License
-This project is created for academic purposes as part of the Big Data Architectures course, Winter 2025.
