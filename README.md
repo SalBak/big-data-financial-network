@@ -1,5 +1,5 @@
 # Big Data Architectures - Financial Investment Network
-## Winter 2025 Term Project
+## Summer 2025 Project
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org)
 [![Kafka](https://img.shields.io/badge/Apache%20Kafka-2.8+-orange.svg)](https://kafka.apache.org)
