@@ -115,3 +115,6 @@ Real-time Data: Stock price simulation from 2000-01-01
 Portfolio Management: Live evaluation and performance tracking
 Analytics: Historical analysis, yearly breakdowns, statistical insights
 Database Integration: MySQL storage with comprehensive schema
+
+📄 License
+This project is created for academic purposes as part of the Big Data Architectures course, Winter 2025.
