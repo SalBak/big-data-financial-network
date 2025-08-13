@@ -62,26 +62,34 @@ graph TD
 ## 📁 Project Structure
 
 big-data-financial-network/
-├── src/
-│   ├── servers/
-│   │   ├── se1_server.py          # Stock Exchange Server 1
-│   │   └── se2_server.py          # Stock Exchange Server 2
-│   ├── investors/
-│   │   ├── inv1.py                # Institutional Investor 1
-│   │   ├── inv2.py                # Institutional Investor 2
-│   │   └── inv3.py                # Institutional Investor 3
-│   ├── database/
-│   │   └── investorsDB.py         # MySQL Database Setup
-│   └── applications/
-│       ├── app1.py                # Kafka to Database Bridge
-│       └── app2.py                # Spark Analytics Engine
-├── data/
-│   └── output/                    # Generated statistics files
-├── README.md                      # This file
-├── requirements.txt               # Python dependencies
-├── Team.txt                       # Team contribution details
-└── .gitignore                     # Git ignore rules
-
+├── 📄 README.md                      # Project documentation
+├── 📄 .gitignore                     # Git ignore rules
+├── 📄 requirements.txt               # Python dependencies
+├── 📄 Team.txt                       # Team contributions
+├── 📁 src/                           # Source code
+│   ├── 📁 servers/                   # Stock exchange servers
+│   │   ├── 🐍 se1_server.py         # Stock Exchange Server 1
+│   │   └── 🐍 se2_server.py         # Stock Exchange Server 2
+│   ├── 📁 investors/                 # Institutional investors
+│   │   ├── 🐍 inv1.py               # Institutional Investor 1
+│   │   ├── 🐍 inv2.py               # Institutional Investor 2
+│   │   └── 🐍 inv3.py               # Institutional Investor 3
+│   ├── 📁 database/                  # Database management
+│   │   └── 🐍 investorsDB.py        # MySQL Database Setup
+│   └── 📁 applications/              # Processing applications
+│       ├── 🐍 app1.py               # Kafka to Database Bridge
+│       └── 🐍 app2.py               # Spark Analytics Engine
+├── 📁 data/                          # Data files
+│   └── 📁 output/                    # Generated statistics
+│       ├── 📊 Inv1_P11_stats.txt
+│       ├── 📊 Inv1_P12_stats.txt
+│       ├── 📊 Inv2_P21_stats.txt
+│       ├── 📊 Inv2_P22_stats.txt
+│       ├── 📊 Inv3_P31_stats.txt
+│       └── 📊 Inv3_P32_stats.txt
+├── 📁 config/                        # Configuration files
+├── 📁 docs/                          # Documentation
+└── 📁 scripts/                       # Utility scripts
 
 ## 🚀 Quick Start
 
